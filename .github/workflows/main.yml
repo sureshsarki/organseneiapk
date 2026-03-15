@@ -1,0 +1,89 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'gradle'
+    
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug --stacktrace
+    
+    - name: Upload Debug APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: ear-sensei-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
+        
+    - name: Build info
+      run: |
+        echo "APK built successfully!"
+        echo "Size: $(du -h app/build/outputs/apk/debug/app-debug.apk | cut -f1)"
+```
+
+---
+
+### **Step 4: Save the Workflow**
+
+1. At the top, the filename should be: **`.github/workflows/android-build.yml`** (leave it as is)
+2. Click the green **"Commit changes"** button (top right)
+3. Click **"Commit changes"** again in the popup
+
+---
+
+### **Step 5: Build Starts Automatically!**
+
+1. You'll be taken back to the Actions tab
+2. You'll see **"Build Android APK"** workflow running ⚠️
+3. Wait **5-10 minutes**
+4. Refresh the page - should show green ✅
+
+---
+
+### **Step 6: Download APK**
+
+1. Click the **completed workflow** (green checkmark)
+2. Scroll to bottom - **"Artifacts"** section
+3. Click **"ear-sensei-debug-apk"**
+4. Download and unzip
+5. You have your APK! 🎉
+
+---
+
+## 📸 **What You'll See:**
+
+**After Step 4 (Build running):**
+```
+Actions
+├─ All workflows
+   └─ Build Android APK
+      ⚠️ Build Android APK #1
+         In progress - 2m 45s
+```
+
+**After 5-10 minutes (Build complete):**
+```
+Actions
+├─ All workflows
+   └─ Build Android APK
+      ✅ Build Android APK #1
+         Succeeded in 8m 12s
