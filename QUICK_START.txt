@@ -1,0 +1,64 @@
+═══════════════════════════════════════════════════════
+  EAR SENSEI - QUICK START (30 MINUTES TO APK)
+═══════════════════════════════════════════════════════
+
+📥 STEP 1: Download Android Studio
+https://developer.android.com/studio
+(Choose "Standard" install, ~3GB download)
+
+📂 STEP 2: Open This Project
+- Launch Android Studio
+- Click "Open"
+- Select this folder
+- Wait for Gradle sync (5 mins)
+
+🔨 STEP 3: Build APK
+- Menu: Build → Build APK(s)
+- Wait 3-5 minutes
+- Click "locate" in notification
+- Find: app/build/outputs/apk/debug/app-debug.apk
+
+📱 STEP 4: Install on Phone
+METHOD A (USB):
+- Enable USB Debugging on phone
+- Connect via USB
+- Click green "Run" button in Android Studio
+
+METHOD B (Manual):
+- Copy APK to phone
+- Enable "Install from Unknown Sources"
+- Tap APK file → Install
+
+✅ STEP 5: Launch App
+- Open Ear Sensei
+- Grant permissions
+- Tap "START MONITORING"
+- Play music and watch it track your exposure!
+
+═══════════════════════════════════════════════════════
+
+⚡ WHAT IT DOES:
+✓ Monitors volume every 10 seconds
+✓ Calculates hearing damage using ISO 1999
+✓ Shows daily exposure % (100% = safe limit)
+✓ Alerts when you're at risk
+✓ Runs in background 24/7
+
+📊 DASHBOARD:
+- Daily Exposure: 0-100%+ (Green→Yellow→Red)
+- Listening Time: Hours spent today
+- Current Volume: Device volume %
+
+🎯 SAFE LIMITS (NIOSH):
+- 85 dB = 8 hours
+- 91 dB = 2 hours  
+- 100 dB = 15 minutes
+- 106 dB = 3.75 minutes
+
+💡 PRO TIP:
+Keep your daily exposure below 75% to protect 
+your hearing long-term!
+
+═══════════════════════════════════════════════════════
+Need help? See INSTALLATION_GUIDE.txt for details
+═══════════════════════════════════════════════════════

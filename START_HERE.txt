@@ -1,0 +1,75 @@
+═══════════════════════════════════════════════════════
+  FASTEST WAY TO GET APK (15 MINUTES)
+═══════════════════════════════════════════════════════
+
+METHOD: GitHub Actions (FREE, AUTOMATIC, SECURE)
+
+STEP 1: CREATE GITHUB REPO (2 mins)
+→ Go to: https://github.com/new
+→ Name: ear-sensei-app
+→ Visibility: Private ✓ (keep your code secret!)
+→ Click "Create repository"
+
+STEP 2: UPLOAD THIS PROJECT (3 mins)
+→ In your new repo, click "uploading an existing file"
+→ Drag ALL files/folders from this package
+→ Commit message: "Initial commit"
+→ Click "Commit changes"
+
+STEP 3: APK BUILDS AUTOMATICALLY! (10 mins)
+→ Go to "Actions" tab in your repo
+→ See "Build Android APK" workflow running
+→ Wait 5-10 minutes for it to complete ✅
+
+STEP 4: DOWNLOAD APK (1 min)
+→ Click the completed workflow run
+→ Scroll to "Artifacts" section at bottom
+→ Click "ear-sensei-debug-apk" to download
+→ Unzip the downloaded file
+→ You now have: app-debug.apk
+
+STEP 5: INSTALL ON PHONE (1 min)
+→ Transfer APK to phone (WhatsApp/Email/USB)
+→ Enable "Install from Unknown Sources"
+→ Tap APK → Install
+→ Open Ear Sensei and start monitoring!
+
+═══════════════════════════════════════════════════════
+
+THAT'S IT! 🎉
+
+The .github/workflows/android-build.yml file is ALREADY
+included in this package - it will work automatically!
+
+═══════════════════════════════════════════════════════
+
+NEED MORE DETAILS?
+→ See BUILD_APK_ONLINE.txt for complete guide
+→ See README_ONLINE_BUILD.md for full documentation
+
+TROUBLESHOOTING?
+→ Build fails: Check Actions tab for error logs
+→ Can't download: Make sure workflow completed (green ✓)
+→ APK won't install: Enable "Unknown Sources" on phone
+
+═══════════════════════════════════════════════════════
+
+WHY GITHUB ACTIONS?
+✅ 100% FREE (forever)
+✅ Completely AUTOMATIC
+✅ Repo can stay PRIVATE
+✅ SECURE (GitHub servers)
+✅ Builds in 5-10 minutes
+✅ No ads or branding
+
+PRIVACY:
+→ Your repo can be PRIVATE (code not public)
+→ Only you can download the APK
+→ GitHub doesn't have access to user data
+→ App works 100% offline on phone
+
+═══════════════════════════════════════════════════════
+
+READY? START WITH STEP 1! 🚀
+
+═══════════════════════════════════════════════════════

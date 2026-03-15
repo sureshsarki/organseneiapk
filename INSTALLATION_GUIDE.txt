@@ -1,0 +1,323 @@
+═══════════════════════════════════════════════════════════════════════
+  EAR SENSEI - ANDROID APP BUILD & INSTALLATION GUIDE
+═══════════════════════════════════════════════════════════════════════
+
+📱 WHAT YOU'LL BUILD:
+A working Android app that monitors headphone volume in real-time and 
+prevents hearing damage by tracking daily exposure using ISO 1999 standards.
+
+⏱️ TOTAL TIME: 30-40 minutes (first time)
+
+═══════════════════════════════════════════════════════════════════════
+STEP 1: INSTALL ANDROID STUDIO (15-20 minutes)
+═══════════════════════════════════════════════════════════════════════
+
+1. Download Android Studio:
+   🔗 https://developer.android.com/studio
+   
+2. Run the installer:
+   - Accept all default settings
+   - Install these components (check all boxes):
+     ✓ Android SDK
+     ✓ Android SDK Platform
+     ✓ Android Virtual Device
+     ✓ Performance (Intel HAXM) - optional but recommended
+
+3. First launch setup:
+   - Choose "Standard" installation
+   - Select theme (Light or Dark)
+   - Click through to finish
+   - Wait for SDK components to download (~2-3 GB)
+
+═══════════════════════════════════════════════════════════════════════
+STEP 2: OPEN THE PROJECT (2-3 minutes)
+═══════════════════════════════════════════════════════════════════════
+
+1. Extract the ear-sensei-android folder to:
+   C:\Users\Madhav\AndroidStudioProjects\
+   (or any location you prefer)
+
+2. Launch Android Studio
+
+3. Click "Open" on the welcome screen
+   (or File → Open if already inside)
+
+4. Navigate to the ear-sensei-android folder
+
+5. Click OK
+
+6. IMPORTANT - First time setup:
+   - Android Studio will detect missing SDK
+   - Click "OK" to install missing components
+   - This downloads ~500MB of libraries
+   - Wait for "Gradle sync finished" at bottom of screen
+
+═══════════════════════════════════════════════════════════════════════
+STEP 3: BUILD THE APK (3-5 minutes)
+═══════════════════════════════════════════════════════════════════════
+
+METHOD A: Quick Debug APK (for testing on your phone)
+------------------------------------------------------
+1. Menu → Build → Build Bundle(s) / APK(s) → Build APK(s)
+
+2. Wait for build (you'll see progress bar at bottom)
+
+3. When complete, notification appears: "APK(s) generated successfully"
+
+4. Click "locate" in the notification
+
+5. Your APK is here:
+   app\build\outputs\apk\debug\app-debug.apk
+
+6. File size: ~5-8 MB
+
+
+METHOD B: Release APK (for sharing with others)
+------------------------------------------------
+1. Menu → Build → Generate Signed Bundle / APK
+
+2. Select "APK" → Next
+
+3. Create keystore (FIRST TIME ONLY):
+   - Click "Create new..."
+   - Key store path: Choose any location (e.g., Desktop\earsensei.jks)
+   - Password: Choose a strong password (REMEMBER THIS!)
+   - Alias: earsensei
+   - Validity: 25 years
+   - Fill in:
+     * First and Last Name: Your Name
+     * Organizational Unit: OrganSensei
+     * Organization: OrganSensei
+     * City: Bangalore
+     * State: Karnataka
+     * Country: IN
+   - Click OK
+
+4. If you already have keystore:
+   - Browse to your .jks file
+   - Enter keystore password
+   - Select key alias
+   - Enter key password
+
+5. Click Next
+
+6. Select "release" build variant
+
+7. Click Finish
+
+8. Wait for build to complete
+
+9. Your APK is here:
+   app\build\outputs\apk\release\app-release.apk
+
+═══════════════════════════════════════════════════════════════════════
+STEP 4: INSTALL ON YOUR ANDROID PHONE (5 minutes)
+═══════════════════════════════════════════════════════════════════════
+
+OPTION 1: USB Cable (Fastest)
+------------------------------
+1. On your phone:
+   Settings → About Phone → Tap "Build Number" 7 times
+   (This enables Developer Mode)
+
+2. Go back to Settings → System → Developer Options
+   Enable "USB Debugging"
+
+3. Connect phone to PC via USB
+
+4. Phone will ask "Allow USB debugging?" → Tap "Allow"
+
+5. In Android Studio:
+   - Make sure your phone appears in device dropdown (top toolbar)
+   - Click the green "Run" button (▶️)
+   - App installs and launches automatically!
+
+OPTION 2: Manual APK Transfer (No USB cable needed)
+----------------------------------------------------
+1. Copy app-debug.apk to your phone:
+   - Email to yourself
+   - Upload to Google Drive
+   - Use bluetooth
+   - USB transfer
+
+2. On your phone:
+   Settings → Security → Enable "Install from Unknown Sources"
+   (or "Install Unknown Apps" on newer Android)
+
+3. Open the APK file from your phone's Downloads folder
+
+4. Tap "Install"
+
+5. Grant permissions when asked
+
+6. Tap "Open" to launch!
+
+═══════════════════════════════════════════════════════════════════════
+STEP 5: FIRST USE (1 minute)
+═══════════════════════════════════════════════════════════════════════
+
+1. App opens to main dashboard
+
+2. Grant permissions:
+   ✓ Modify audio settings - to read volume
+   ✓ Post notifications - to alert you
+
+3. Tap "START MONITORING"
+
+4. You'll see a persistent notification: "Ear Sensei - Monitoring..."
+
+5. Play some music and watch:
+   - Daily Exposure % increases
+   - Listening Time counts up
+   - Current Volume shows your level
+
+6. Try increasing volume to 80%+ and wait 30 seconds:
+   - You'll get an alert notification!
+
+═══════════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════
+
+❌ Build fails with "SDK not found"
+→ Tools → SDK Manager → Install Android SDK Platform 34
+
+❌ "Gradle sync failed"
+→ File → Invalidate Caches → Restart
+→ Wait for restart, then File → Sync Project with Gradle Files
+
+❌ App crashes on launch
+→ Check your Android version is 8.0 or higher
+→ Grant all permissions when prompted
+
+❌ Background monitoring stops
+→ Settings → Apps → Ear Sensei → Battery → Don't optimize
+→ This prevents Android from killing the service
+
+❌ No notifications appearing
+→ Settings → Apps → Ear Sensei → Notifications → Enable all
+
+❌ "Installation blocked" on phone
+→ Settings → Security → Enable "Unknown Sources"
+→ Or for newer Android: Settings → Apps → Special Access → 
+   Install Unknown Apps → (Your browser/Files app) → Allow
+
+═══════════════════════════════════════════════════════════════════════
+UNDERSTANDING THE APP
+═══════════════════════════════════════════════════════════════════════
+
+📊 DASHBOARD METRICS:
+
+Daily Exposure (0-100%+)
+├─ Green (0-50%): Safe zone, enjoy your music
+├─ Yellow (50-75%): Moderate - consider breaks
+├─ Orange (75-100%): High risk - reduce volume
+└─ Red (100%+): DANGER - exceeded daily safe limit
+
+Listening Time
+└─ Total hours and minutes spent listening today
+
+Current Volume
+└─ Your device volume as a percentage (0-100%)
+
+
+🧮 HOW IT CALCULATES DAMAGE:
+
+Based on NIOSH standards:
+- 85 dB = 8 hours safe
+- 88 dB = 4 hours safe (every +3 dB = half the time)
+- 91 dB = 2 hours safe
+- 94 dB = 1 hour safe
+- 100 dB = 15 minutes safe
+
+Example:
+If you listen at 100% volume (≈100 dB) for 30 minutes:
+→ 30 min ÷ 15 min safe = 200% daily dose
+→ You've exceeded 2 days worth of safe exposure!
+
+
+⚙️ HOW IT WORKS:
+
+1. Background service checks volume every 10 seconds
+2. Converts volume % to estimated dB (50-100 dB range)
+3. Calculates damage contribution for that interval
+4. Stores in local SQLite database
+5. Updates your daily exposure %
+6. Sends alerts when you cross thresholds
+
+═══════════════════════════════════════════════════════════════════════
+TECHNICAL SPECIFICATIONS
+═══════════════════════════════════════════════════════════════════════
+
+Language: Kotlin
+Minimum Android: 8.0 (API 26)
+Target Android: 14 (API 34)
+APK Size: ~5-8 MB
+Database: SQLite (local storage only)
+Network: Not required (works offline)
+Background: Foreground service (persistent notification)
+
+Files Structure:
+├─ MainActivity.kt - Main UI and dashboard
+├─ VolumeMonitorService.kt - Background monitoring
+├─ HearingDamageCalculator.kt - ISO 1999 calculations
+├─ DatabaseHelper.kt - SQLite data storage
+└─ activity_main.xml - UI layout
+
+Permissions Required:
+✓ MODIFY_AUDIO_SETTINGS - read volume levels
+✓ POST_NOTIFICATIONS - send alerts
+✓ FOREGROUND_SERVICE - run in background
+✓ WAKE_LOCK - keep monitoring when screen off
+
+═══════════════════════════════════════════════════════════════════════
+PRIVACY & DATA
+═══════════════════════════════════════════════════════════════════════
+
+✅ What we DO:
+- Monitor volume levels locally
+- Store listening history on your device
+- Send notifications about hearing risks
+
+❌ What we DON'T do:
+- Record any audio
+- Access microphone
+- Connect to internet
+- Send data to servers
+- Track your location
+- Know what music you're listening to
+
+All data stays on YOUR phone only.
+
+═══════════════════════════════════════════════════════════════════════
+NEXT STEPS AFTER INSTALLATION
+═══════════════════════════════════════════════════════════════════════
+
+1. Use the app for 1 week - track your real listening habits
+
+2. Collect feedback from 10-20 friends:
+   - Install on their phones
+   - Ask: "Did this change your volume habits?"
+   - Note: What features they want
+
+3. Prepare for investor pitch:
+   - Screenshot your dashboard with real data
+   - Create user testimonials
+   - Document: "App prevented X hours of harmful exposure"
+
+4. Consider future enhancements:
+   - Headphone model database (accurate dB for each model)
+   - Spotify integration
+   - Weekly reports
+   - Export to CSV
+
+═══════════════════════════════════════════════════════════════════════
+
+✅ DONE! You now have a working Ear Sensei Android app!
+
+Questions? Issues? 
+→ Check the README.md file for detailed technical info
+
+Built with ❤️ for your hearing health
+OrganSensei © 2026
+
+═══════════════════════════════════════════════════════════════════════

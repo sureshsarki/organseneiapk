@@ -1,0 +1,240 @@
+═══════════════════════════════════════════════════════════════════
+  EAR SENSEI - PROJECT FILE STRUCTURE
+═══════════════════════════════════════════════════════════════════
+
+ear-sensei-android/
+│
+├── 📄 QUICK_START.txt ..................... Start here! 30-min guide
+├── 📄 INSTALLATION_GUIDE.txt .............. Detailed step-by-step
+├── 📄 README.md ........................... Full documentation
+├── 📄 build.gradle ........................ Project-level build config
+├── 📄 settings.gradle ..................... Project settings
+├── 📄 gradle.properties ................... Gradle configuration
+│
+└── app/ .................................. Main application folder
+    ├── 📄 build.gradle ................... App-level build config
+    ├── 📄 proguard-rules.pro ............. Code obfuscation rules
+    │
+    └── src/main/ ......................... Source code
+        │
+        ├── 📄 AndroidManifest.xml ........ App config & permissions
+        │
+        ├── java/com/organsensei/earsensei/ ... Kotlin source code
+        │   │
+        │   ├── 💎 MainActivity.kt ........ Main app screen & UI logic
+        │   │   └─ What it does:
+        │   │      • Shows dashboard with exposure stats
+        │   │      • Start/Stop monitoring buttons
+        │   │      • Handles permissions
+        │   │      • Updates UI every time screen opens
+        │   │
+        │   ├── ⚙️ VolumeMonitorService.kt ... Background monitoring
+        │   │   └─ What it does:
+        │   │      • Runs 24/7 in background
+        │   │      • Checks volume every 10 seconds
+        │   │      • Calculates damage for each interval
+        │   │      • Sends alerts when limits reached
+        │   │      • Updates notification status
+        │   │
+        │   ├── 🧮 HearingDamageCalculator.kt .. ISO 1999 formula
+        │   │   └─ What it does:
+        │   │      • Converts volume % to estimated dB
+        │   │      • Calculates safe time at each dB level
+        │   │      • Determines risk level (Safe→Critical)
+        │   │      • Recommends rest time
+        │   │
+        │   └── 💾 DatabaseHelper.kt ...... SQLite data storage
+        │       └─ What it does:
+        │          • Stores each listening session
+        │          • Queries today's stats
+        │          • Gets weekly summary
+        │          • Cleans old data (30+ days)
+        │
+        └── res/ .......................... Resources (UI, strings, icons)
+            │
+            ├── layout/
+            │   └── 📱 activity_main.xml ... Main screen UI design
+            │       └─ Contains:
+            │          • Daily Exposure card
+            │          • Listening Time card
+            │          • Current Volume card
+            │          • Start/Stop buttons
+            │
+            └── values/
+                └── 📝 strings.xml ......... All text displayed in app
+
+
+═══════════════════════════════════════════════════════════════════
+  UNDERSTANDING THE CODE FLOW
+═══════════════════════════════════════════════════════════════════
+
+1️⃣ USER OPENS APP
+   MainActivity.kt loads
+   ↓
+   Checks permissions
+   ↓
+   Shows dashboard with today's stats from DatabaseHelper
+   ↓
+   User sees: Daily Exposure %, Listening Time, Volume
+
+2️⃣ USER TAPS "START MONITORING"
+   MainActivity starts VolumeMonitorService
+   ↓
+   Service creates persistent notification
+   ↓
+   Service starts repeating task every 10 seconds
+
+3️⃣ EVERY 10 SECONDS (while monitoring):
+   VolumeMonitorService runs:
+   ↓
+   Reads current volume from Android AudioManager
+   ↓
+   Passes to HearingDamageCalculator
+   ↓
+   Calculator estimates dB and calculates damage
+   ↓
+   Stores in database via DatabaseHelper
+   ↓
+   Checks if alert needed (>50%, >75%, >100%)
+   ↓
+   Updates notification with current status
+   ↓
+   Repeat...
+
+4️⃣ USER RETURNS TO APP
+   MainActivity.onResume() called
+   ↓
+   Queries database for latest stats
+   ↓
+   Updates all UI elements
+   ↓
+   User sees updated Daily Exposure %
+
+5️⃣ USER TAPS "STOP MONITORING"
+   Service stopped
+   ↓
+   Notification removed
+   ↓
+   Data remains in database for history
+
+
+═══════════════════════════════════════════════════════════════════
+  KEY ANDROID CONCEPTS USED
+═══════════════════════════════════════════════════════════════════
+
+🎯 ACTIVITY (MainActivity.kt)
+   What: The visible screen user interacts with
+   Like: A window in a desktop app
+   Job: Display UI, handle button clicks
+
+⚙️ SERVICE (VolumeMonitorService.kt)
+   What: Background worker that runs without UI
+   Like: A daemon process in Linux
+   Job: Keep monitoring even when app is closed
+
+💾 SQLite DATABASE (DatabaseHelper.kt)
+   What: Local database stored on phone
+   Like: A simple Excel file with SQL queries
+   Job: Store every listening session with timestamp
+
+📱 LAYOUT XML (activity_main.xml)
+   What: Defines how UI looks (buttons, text, cards)
+   Like: HTML for Android
+   Job: Design the screen appearance
+
+🔔 NOTIFICATIONS
+   What: System messages shown in notification tray
+   Like: Toast notifications in Windows
+   Job: Alert user about hearing risks
+
+📡 FOREGROUND SERVICE
+   What: Service with persistent notification
+   Like: A task in Task Manager you can see
+   Job: Prevents Android from killing the service
+
+
+═══════════════════════════════════════════════════════════════════
+  MODIFYING THE APP (For Future Development)
+═══════════════════════════════════════════════════════════════════
+
+Want to change the UI colors?
+→ Edit: app/src/main/res/layout/activity_main.xml
+   Change: android:textColor="#1976D2" to your color
+
+Want to adjust monitoring interval?
+→ Edit: VolumeMonitorService.kt
+   Change: MONITORING_INTERVAL = 10000L (milliseconds)
+
+Want to change safe limits?
+→ Edit: HearingDamageCalculator.kt
+   Modify: SAFE_EXPOSURE_MAP with your dB/time values
+
+Want to add new features?
+→ Start by reading MainActivity.kt
+   Follow the code flow above
+   Add new buttons in activity_main.xml
+   Add click handlers in MainActivity.kt
+
+
+═══════════════════════════════════════════════════════════════════
+  GRADLE FILES EXPLAINED
+═══════════════════════════════════════════════════════════════════
+
+build.gradle (project level)
+├─ Defines Kotlin and Android plugin versions
+└─ Sets up repositories (where to download libraries)
+
+app/build.gradle (app level)
+├─ Defines app ID: com.organsensei.earsensei
+├─ Sets min Android version: API 26 (Android 8.0)
+├─ Sets target version: API 34 (Android 14)
+├─ Lists dependencies (libraries used):
+│  • androidx.core - Core Android libraries
+│  • androidx.appcompat - Backward compatibility
+│  • material - Material Design components (cards, buttons)
+│  • cardview - Card layouts in UI
+└─ Build configuration (debug vs release)
+
+settings.gradle
+└─ Tells Gradle this is a project called "EarSensei"
+
+gradle.properties
+└─ Performance settings for build process
+
+
+═══════════════════════════════════════════════════════════════════
+  WHAT EACH FILE SIZE IS (APPROXIMATE)
+═══════════════════════════════════════════════════════════════════
+
+MainActivity.kt .................... ~4 KB   (main UI logic)
+VolumeMonitorService.kt ............ ~4 KB   (background worker)
+HearingDamageCalculator.kt ......... ~3 KB   (math formulas)
+DatabaseHelper.kt .................. ~4 KB   (data storage)
+activity_main.xml .................. ~4 KB   (UI layout)
+AndroidManifest.xml ................ ~1 KB   (app config)
+build.gradle files ................. ~2 KB   (build settings)
+
+Total source code .................. ~25 KB
+
+After compilation:
+Debug APK .......................... ~5-8 MB (includes libraries)
+Release APK (signed) ............... ~4-6 MB (optimized)
+
+
+═══════════════════════════════════════════════════════════════════
+
+🎓 LEARNING RESOURCES (If you want to understand deeper):
+
+Android Basics:
+→ developer.android.com/courses/android-basics-kotlin/course
+
+Kotlin Language:
+→ kotlinlang.org/docs/getting-started.html
+
+Services:
+→ developer.android.com/guide/components/services
+
+SQLite Database:
+→ developer.android.com/training/data-storage/sqlite
+
+═══════════════════════════════════════════════════════════════════
