@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ear Sensei</string>
+    <string name="monitoring_active">Monitoring Active</string>
+    <string name="monitoring_stopped">Monitoring Stopped</string>
+    <string name="start_monitoring">Start Monitoring</string>
+    <string name="stop_monitoring">Stop Monitoring</string>
+    <string name="daily_exposure">Daily Exposure</string>
+    <string name="listening_time">Listening Time</string>
+    <string name="current_volume">Current Volume</string>
+    <string name="of_safe_limit">of safe daily limit</string>
+    <string name="ready_to_monitor">Ready to Monitor</string>
+    <string name="permissions_required">Permissions Required</string>
+</resources>
